@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Inventory Page</title>
+</head>
+<body>
+  <h1>Welcome to your Inventory Page</h1>
+  <nav style="margin: 20px;">
+    <a href="{% url 'inventory_app:home' %}">Home</a>
+    <a href="{% url 'inventory_app:ingredient' %}">Ingredients</a>
+    <a href="{% url 'inventory_app:menu' %}">Menu</a>
+    <a href="{% url 'inventory_app:purchases' %}">Purchases</a>
+  </nav>
+  
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

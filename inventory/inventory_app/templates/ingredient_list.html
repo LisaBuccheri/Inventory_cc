@@ -1,0 +1,22 @@
+{% extends "./base.html" %}
+
+{% block content %}
+    <h1>L'inventaire du jour :</h1>
+    <a href="{% url 'inventory_app:add_ingredient' %}">Add new ingredient</a>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+            </tr>
+            {% for ingredient in object_list %}
+                <tr>
+                    <td><a href="{% url 'inventory_app:update_ingredient' ingredient.pk %}">{{ ingredient.name }}</a></td>
+                    <td>{{ ingredient.quantity }}</td>
+                    <td>{{ ingredient.unit_price }}</td>
+                    <td><a href="{% url 'inventory_app:delete_ingredient' ingredient.pk %}">Delete</a></td>
+                </tr>
+            {% endfor %}
+    </table>
+
+{% endblock %}

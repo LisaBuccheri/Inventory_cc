@@ -1,0 +1,51 @@
+{% extends "./base.html" %}
+
+{% block content %}
+    <h1>Menu :</h1>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Prix</th>
+        </tr>
+        {% for item in menuItems.all %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.price }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Ingredients :</h1>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+        </tr>
+        {% for ingredient in ingredients.all %}
+            <tr>
+                <td>{{ ingredient.name }}</td>
+                <td>{{ ingredient.quantity }}</td>
+                <td>{{ ingredient.unit_price }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Purchases :</h1>
+    <table>
+        <tr>
+            <th>Menu</th>
+            <th>Price</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+        {% for purchase in purchases.all %}
+        <tr>
+            <td>{{ purchase.menu_item.title }}</td>
+            <td>{{ purchase.menu_item.price }}</td>
+            <td>{{ purchase.time_stamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

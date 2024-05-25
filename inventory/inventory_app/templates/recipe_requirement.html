@@ -1,0 +1,10 @@
+{% extends "./base.html" %}
+
+{% block content %}
+<h1> Add Recipe Requirement For a Menu Item </h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit"/>
+</form>
+{% endblock %}
