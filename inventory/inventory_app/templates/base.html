@@ -5,13 +5,23 @@
    <title>Inventory Page</title>
 </head>
 <body>
-  <h1>Welcome to your Inventory Page</h1>
-  <nav style="margin: 20px;">
-    <a href="{% url 'inventory_app:home' %}">Home</a>
-    <a href="{% url 'inventory_app:ingredient' %}">Ingredients</a>
-    <a href="{% url 'inventory_app:menu' %}">Menu</a>
-    <a href="{% url 'inventory_app:purchases' %}">Purchases</a>
-  </nav>
+  <div class="header-first-row">
+    <h1>Welcome to your Inventory Page</h1>
+    {% if user.is_authenticated %}
+    <a class="logout" href="/logout">Logout</a>
+    {% endif %}
+  </div>
+  <div class="header-second-row">
+    {% if user.is_authenticated %}
+    <p>Hi, {{ user.username }}!</p>
+    <nav style="margin: 20px;">
+      <a href="{% url 'inventory_app:home' %}">Home</a>
+      <a href="{% url 'inventory_app:ingredient' %}">Ingredients</a>
+      <a href="{% url 'inventory_app:menu' %}">Menu</a>
+      <a href="{% url 'inventory_app:purchases' %}">Purchases</a>
+    {% endif %}
+    </nav>
+  </div>
   
   {% block content %}
   {% endblock %}

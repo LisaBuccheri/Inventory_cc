@@ -7,7 +7,7 @@
             <th>Nom</th>
             <th>Prix</th>
         </tr>
-        {% for item in menuItems.all %}
+        {% for item in menuItems %}
             <tr>
                 <td>{{ item.title }}</td>
                 <td>{{ item.price }}</td>
@@ -22,12 +22,12 @@
             <th>Quantité</th>
             <th>Prix unitaire</th>
         </tr>
-        {% for ingredient in ingredients.all %}
-            <tr>
-                <td>{{ ingredient.name }}</td>
-                <td>{{ ingredient.quantity }}</td>
-                <td>{{ ingredient.unit_price }}</td>
-            </tr>
+        {% for ingredient in ingredients %}
+        <tr>
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.quantity }}</td>
+            <td>{{ ingredient.unit_price }}</td>
+        </tr>
         {% endfor %}
     </table>
 
@@ -39,7 +39,7 @@
             <th>Time</th>
             <th>Actions</th>
         </tr>
-        {% for purchase in purchases.all %}
+        {% for purchase in purchases %}
         <tr>
             <td>{{ purchase.menu_item.title }}</td>
             <td>{{ purchase.menu_item.price }}</td>
