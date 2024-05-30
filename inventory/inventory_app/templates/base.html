@@ -1,29 +1,38 @@
+{% load static %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <title>Inventory Page</title>
+   <link rel="stylesheet" type="text/css" href="{% static 'inventory_app/style.css' %}">
+   <title>Inventory</title>
 </head>
 <body>
   <div class="header-first-row">
-    <h1>Welcome to your Inventory Page</h1>
+    <h1>Welcome to your Inventory</h1>
     {% if user.is_authenticated %}
-    <a class="logout" href="/logout">Logout</a>
+    <a class="logout" href="/logout">Log out</a>
     {% endif %}
   </div>
   <div class="header-second-row">
     {% if user.is_authenticated %}
-    <p>Hi, {{ user.username }}!</p>
-    <nav style="margin: 20px;">
-      <a href="{% url 'inventory_app:home' %}">Home</a>
-      <a href="{% url 'inventory_app:ingredient' %}">Ingredients</a>
-      <a href="{% url 'inventory_app:menu' %}">Menu</a>
-      <a href="{% url 'inventory_app:purchases' %}">Purchases</a>
-    {% endif %}
+    <h3>Hi, {{ user.username }}!</h3>
+    <nav class="navbar">
+      {% url 'home' as home_url %}
+      {% url 'ingredients' as ingredients_url %}
+      {% url 'menu' as menu_url %}
+      {% url 'purchases' as purchases_url %}
+      {% url 'reports' as reports_url %}
+      <a class="nav-item{% if request.path == home_url %} current-page{% endif %}" href="{% url 'inventory_app:home' %}">Home</a>
+      <a class="nav-item{% if request.path == ingredients_url %} current-page{% endif %}" href="{% url 'inventory_app:ingredient' %}">Ingredients</a>
+      <a class="nav-item{% if request.path == menu_url %} current-page{% endif %}" href="{% url 'inventory_app:menu' %}">Menu</a>
+      <a class="nav-item{% if request.path == purchases_url %} current-page{% endif %}" href="{% url 'inventory_app:purchases' %}">Purchases</a>
+      <a class="nav-item{% if request.path == reports_url %} current-page{% endif %}" href="{% url 'inventory_app:sales' %}">Reports</a>
     </nav>
+    {% endif %}
   </div>
-  
-  {% block content %}
-  {% endblock %}
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
 </body>
 </html>

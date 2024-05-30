@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models import Sum
 from django.shortcuts import redirect
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -74,11 +76,50 @@ class PurchasesView(LoginRequiredMixin, ListView):
   context_object_name = 'purchases'
   ordering = ['-time_stamp']
 
-class PurchasesCreate(LoginRequiredMixin, CreateView):
+class PurchasesCreate(LoginRequiredMixin, TemplateView):
   model = Purchases
   form_class = PurchasesForm
   template_name = 'purchases_form.html'
   success_url = '/purchases/'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['menu_items'] = [x for x in MenuItem.objects.all() if x.available()]
+    return context
+  
+  def post(self, request):
+    menu_item_id = request.POST.get('menu_item')
+    menu_item = MenuItem.objects.get(pk=menu_item_id)
+    requirements = menu_item.requirements
+    purchase = Purchases(menu_item=menu_item)
+
+    for requirement in requirements.all():
+      required_indredient = requirement.ingredient
+      required_indredient.quantity -= requirement.quantity
+      required_indredient.save()
+    
+    purchase.save()
+    return redirect('/purchases/') 
+
+class SalesView(LoginRequiredMixin, TemplateView):
+  template_name = 'sales.html'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['purchases'] = Purchases.objects.all()
+    revenue = Purchases.objects.all().aggregate(
+      revenue=Sum('menu_item__price'))["revenue"]
+    total_cost = 0
+    for purchase in Purchases.objects.all():
+      for requirement in purchase.menu_item.requirements.all():
+        total_cost += requirement.ingredient.unit_price * requirement.quantity
+
+    context['revenue'] = revenue
+    context['total_cost'] = total_cost
+    context['profit'] = revenue - total_cost
+    
+    return context
+
 
 def log_out(request):
     logout(request)
