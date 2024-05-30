@@ -1,4 +1,4 @@
-###Django project 
+# Django project 
 
 It's a small project in Django with a few instructions:
   - have a home page that includes the others pages informations
