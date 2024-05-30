@@ -1,22 +1,23 @@
 {% extends "./base.html" %}
 
 {% block content %}
-<h2>Purchases</h2>
-<a href="{% url 'inventory_app:add_purchase' %}">Add Purchase</a>
-
-<table>
-    <tr>
-        <th>Menu</th>
-        <th>Price</th>
-        <th>Time</th>
-    </tr>
-    {% for purchase in object_list %}
-    <tr>
-        <td>{{ purchase.menu_item.title }}</td>
-        <td>{{ purchase.menu_item.price }}</td>
-        <td>{{ purchase.time_stamp }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
+<div class="flex-container">
+    <h2>Purchases</h2>
+    <a href="{% url 'inventory_app:add_purchase' %}">Add Purchase</a>
+    
+    <table>
+        <tr>
+            <th>Menu</th>
+            <th>Price</th>
+            <th>Time</th>
+        </tr>
+        {% for purchase in object_list %}
+        <tr>
+            <td>{{ purchase.menu_item.title }}</td>
+            <td>{{ purchase.menu_item.price }}</td>
+            <td>{{ purchase.time_stamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
