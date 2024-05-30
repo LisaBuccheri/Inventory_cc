@@ -16,6 +16,6 @@ python3 manage.py runserver #launch the server
 Visit http://127.0.0.1:8000/ for the web site. 
 
 You can go to http://127.0.0.1:8000/admin for admin setup (add new user, etc)
-username: tom
-password: tom123
+- username: tom
+- password: tom123
 
